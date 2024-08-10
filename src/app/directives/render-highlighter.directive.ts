@@ -1,22 +1,28 @@
 import { style } from '@angular/animations';
-import { Directive, ElementRef, HostBinding, HostListener, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appRenderHighlighter]' // attr selector
 })
 export class RenderHighlighterDirective {
-  @HostBinding("style.backgroundColor") bgColor = "transparent"
+  @Input() defaultColour : string;
+  @Input('appRenderHighlighter') hoverColour : string;
+
+  // @HostBinding("style.backgroundColor") bgColor = "transparent"
+  @HostBinding("style.backgroundColor") bgColor;
+
   constructor(private renderer:Renderer2, private elementRef: ElementRef) { }
   ngOnInit() {
-    // this.renderer.setStyle(this.elementRef.nativeElement, "background-color", "aqua" )
+    this.bgColor = this.defaultColour;
   }
+
   @HostListener('mouseenter') onMouseOver(eventMetaData: Event){
-    // this.renderer.setStyle(this.elementRef.nativeElement, "background-color", "aqua" )
-    this.bgColor = 'aqua';
+    // this.bgColor = 'aqua';
+    this.bgColor = this.hoverColour;
   }
 
   @HostListener('mouseleave') onMouseLeave(eventMetaData: Event){
-    // this.renderer.setStyle(this.elementRef.nativeElement, "background-color", "white" )
-    this.bgColor = 'transparent';
+    this.bgColor = this.defaultColour;
+    // this.bgColor = 'transparent';
   }
 }
