@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd"> Show {{ + (onlyOdd) ?  "even " :  "odd " }} Numbers</button>
+      <br><br>
+
+      <ul class="list-group" *ngIf="onlyOdd">
+        <li class="list-group-item" *ngFor="let number of numbers">
+          <p *ngIf="(number%2)==1"
+            [ngClass]="{odd:(number%2)==1}"
+            [ngStyle]="{color: 'white'}"
+
+          > Odd - {{number}} </p>         
+        </li>
+      </ul>
+      <ul class="list-group" *ngIf="!onlyOdd">
+        <li class="list-group-item" *ngFor="let number of numbers">
+          <p *ngIf="(number%2)==0"
+            [ngClass]="{even:(number%2)==0}"
+            [ngStyle]="{color: 'white'}"
+          > Even - {{number}} </p>         
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
